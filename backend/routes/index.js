@@ -1,13 +1,18 @@
 // backend/routes/index.js
 
-//test route
 const express = require('express');
 const router = express.Router();
+const apiRouter = require('./api');
 
-router.get('/hello/world', function(req, res) {
-  res.cookie('XSRF-TOKEN', req.csrfToken());
-  res.send('Hello World!');
-});
+//connecting the router so then all routes will be prefixes with `/api`
+router.use('/api', apiRouter);
+
+//test route
+
+// router.get('/hello/world', function(req, res) {
+//   res.cookie('XSRF-TOKEN', req.csrfToken());
+//   res.send('Hello World!');
+// });
 
 
 // Add a XSRF-TOKEN cookie
