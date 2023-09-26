@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len:[10, 10],
         isValidNum(value) {
-          if (!Validator.isMobilePhone(value, ['am-Am'], { strictMode: false })) {
+          if (!Validator.isMobilePhone(value)) {
             throw new Error("Phone number is not valid")
           }
         }
