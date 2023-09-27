@@ -10,14 +10,14 @@ const router = express.Router();
 
 const validateLogin = [
     check('credential')
-      .exists({ checkFalsy: true })
-      .notEmpty()
-      .withMessage('Please provide a valid email or phone number.'),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a valid email or phone number.'),
     check('password')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a password.'),
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a password.'),
     handleValidationErrors
-  ];
+];
 
 // Log in
 router.post(
@@ -46,7 +46,8 @@ router.post(
         const safeUser = {
             id: user.id,
             email: user.email,
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName
         };
 
         await setTokenCookie(res, safeUser);
@@ -61,27 +62,28 @@ router.post(
 router.get(
     '/',
     (req, res) => {
-      const { user } = req;
-      if (user) {
-        const safeUser = {
-          id: user.id,
-          email: user.email,
-          username: user.username,
-        };
-        return res.json({
-          user: safeUser
-        });
-      } else return res.json({ user: null });
+        const { user } = req;
+        if (user) {
+            const safeUser = {
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName
+            };
+            return res.json({
+                user: safeUser
+            });
+        } else return res.json({ user: null });
     }
-  );
+);
 
 
 router.delete(
     '/',
     (_req, res) => {
-      res.clearCookie('token');
-      return res.json({ message: 'success' });
+        res.clearCookie('token');
+        return res.json({ message: 'success' });
     }
-  );
+);
 
 module.exports = router;
